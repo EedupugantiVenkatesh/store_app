@@ -15,6 +15,7 @@ https://github.com/EedupugantiVenkatesh/store_app/releases/download/untagged-a0d
 
 1. **Clone the repository**
    git clone https://github.com/EedupugantiVenkatesh/store_app.git
+   
    cd product_catalog_app
 
 2. **Install dependencies**
