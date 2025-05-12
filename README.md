@@ -2,11 +2,14 @@
 
 A Flutter mobile application that displays a list of products from a mock API, allows users to view product details, and manage favorites.
 
+# Download Link 
+
+https://github.com/EedupugantiVenkatesh/store_app/releases/download/untagged-a0d8aea2a85ca9b3be74/app-release.apk
 
 ## Packages Used
 
-  http: ^1.1.0        # For making API requests
-  shared_preferences: ^2.2.0  # For local data persistence
+  http: ^1.1.0       
+  shared_preferences: ^2.2.0 
 
 ## Setup Instructions
 
