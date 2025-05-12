@@ -3,9 +3,9 @@ import 'package:product_catalog_app/crud_operations/data_service_operations.dart
 import 'package:product_catalog_app/model/catalog_model.dart';
 
 class FavouritesScreen extends StatefulWidget {
-  final List<CategoryModel> allItems2;
+  final List<CategoryModel> allItems;
 
-  const FavouritesScreen({super.key, required this.allItems2});
+  const FavouritesScreen({super.key, required this.allItems});
 
   @override
   State<FavouritesScreen> createState() => _FavouritesScreenState();
@@ -24,14 +24,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     loadFavourites();
   }
 
-  @override
-  void didUpdateWidget(FavouritesScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.allItems2 != widget.allItems2) {
-      loadFavourites();
-    }
-  }
-
   Future<void> loadFavourites() async {
     try {
       setState(() {
@@ -40,16 +32,13 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
       });
 
       favorites = await dataServiceOperations.getFavorites();
-      print('Loaded favorites: $favorites');
 
       // Filter the passed items
-      favouriteItems = widget.allItems2
+      favouriteItems = widget.allItems
           .where((item) => favorites.contains(item.id))
           .toList();
-      print('Filtered favourite items: ${favouriteItems.length}');
     } catch (e) {
       error = e.toString();
-      print('Error loading favorites: $e');
     } finally {
       setState(() {
         isLoading = false;

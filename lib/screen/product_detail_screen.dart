@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:product_catalog_app/crud_operations/data_service_operations.dart';
 import 'package:product_catalog_app/model/catalog_model.dart';
 
 class ProductDetailScreen extends StatefulWidget {
