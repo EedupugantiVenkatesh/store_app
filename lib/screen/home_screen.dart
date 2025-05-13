@@ -7,7 +7,9 @@ import 'package:product_catalog_app/model/catalog_model.dart';
 import 'package:product_catalog_app/screen/favourites_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required Null Function(dynamic items) onItemsLoaded});
+  final Function(List<CategoryModel>) onItemsLoaded;
+
+  const HomeScreen({super.key, required this.onItemsLoaded});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -18,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchDataFromApi();
+    loadFavorites();
   }
 
   DataServiceOperations dataServiceOperations = DataServiceOperations();
@@ -47,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 price: item['price'].toString(),
               );
             }).toList();
+        widget.onItemsLoaded(storeItems);
       } else {
         error = 'Failed to load products';
       }
@@ -59,15 +63,20 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void addtoFavorites(String id) {
+  Future<void> loadFavorites() async {
+    favorites = await dataServiceOperations.getFavorites();
+    setState(() {});
+  }
+
+  void addtoFavorites(String id) async {
     setState(() {
       if (favorites.contains(id)) {
         favorites.remove(id); 
       } else {
         favorites.add(id); 
       }
-      dataServiceOperations.saveFavorites(favorites);
     });
+    await dataServiceOperations.saveFavorites(favorites);
   }
 
   @override
@@ -86,7 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     var item = storeItems[index];
                     String name = item.name.substring(0, 10);
-                    var isFav = favorites.contains(item.id);
                     return ListTile(
                       leading: Image.network(item.image, width: 30, height: 30),
                       title: Row(
@@ -94,17 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [Text(name), Text(item.price)],
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.favorite),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) =>
-                                      FavouritesScreen(allItems: storeItems),
-                            ),
-                          );
-                        },
+                        icon: Icon(
+                          favorites.contains(item.id) ? Icons.favorite : Icons.favorite_border,
+                          color: favorites.contains(item.id) ? Colors.red : null,
+                        ),
+                        onPressed: () => addtoFavorites(item.id),
                       ),
                     );
                   },

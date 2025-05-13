@@ -72,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         FavouritesScreen(
           allItems: storeItems,
-          // onFavoriteToggle: _toggleFavorite,
         ),
       ];
     });
@@ -102,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() {
             _currentIndex = index;
             if (index == 1) {
-              _updateScreens();
+              _loadInitialData();
             }
           });
         },
