@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:product_catalog_app/operations/data_service_operations.dart';
 import 'package:product_catalog_app/model/catalog_model.dart';
 import 'package:product_catalog_app/screen/favourites_screen.dart';
+import 'package:product_catalog_app/screen/product_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function(List<CategoryModel>) onItemsLoaded;
@@ -108,6 +109,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         onPressed: () => addtoFavorites(item.id),
                       ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailScreen(
+                              product: item,
+                              favorites: favorites,
+                              onFavoriteToggle: addtoFavorites,
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

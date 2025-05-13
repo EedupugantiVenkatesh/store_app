@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_catalog_app/operations/data_service_operations.dart';
 import 'package:product_catalog_app/model/catalog_model.dart';
+import 'package:product_catalog_app/screen/product_detail_screen.dart';
 
 class FavouritesScreen extends StatefulWidget {
   final List<CategoryModel> allItems;
@@ -75,6 +76,20 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [Text(name), Text(item.price)],
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetailScreen(
+                                  product: item,
+                                  favorites: favorites,
+                                  onFavoriteToggle: (id) async {
+                                    await loadFavourites(); // Reload favorites after toggle
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
                     ),
