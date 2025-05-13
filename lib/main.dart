@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         FavouritesScreen(
           allItems: storeItems,
-          onFavoriteToggle: _toggleFavorite,
+          // onFavoriteToggle: _toggleFavorite,
         ),
       ];
     });
@@ -106,13 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
+            icon: Icon(Icons.home),
             label: AppConstants.homeLabel,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.favorite),
+            icon: Icon(Icons.favorite),
             label: AppConstants.favoritesLabel,
           ),
         ],
